@@ -2,4 +2,4 @@ As shown in [http://www.v3vee.org/palacios/palacios-1.3-simple.txt](http://www.v
 
 Now we set up the source tree as shown in [http://kernel-handbook.alioth.debian.org/ch-common-tasks.html](http://kernel-handbook.alioth.debian.org/ch-common-tasks.html).
 
-*This is probably too tricky to do, and unnecessary, too.*
+__This is probably too tricky to do, and unnecessary, too.__
