@@ -1,4 +1,4 @@
 work-log
 ========
 
-http://os.cs.tsinghua.edu.cn/oscourse/OS2013/projects/U06 日志
+http://os.cs.tsinghua.edu.cn/oscourse/OS2013/projects/U06 
