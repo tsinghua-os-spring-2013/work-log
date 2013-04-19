@@ -4,6 +4,6 @@ and then we use
 
     objcopy --input binary --output elf64-x86-64 --binary-architecture i386 palacios.img palacios.o
 
-to createan `palacios.o` from `palacios.img`.
+to create `palacios.o` from `palacios.img`.
 
 Now copy `palacios.o` to the same directory as `libv3vee.a` and build.
