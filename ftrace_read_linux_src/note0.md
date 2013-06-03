@@ -21,4 +21,8 @@
    * = previous %rbp value (of the prev frame) (with respect to mcount)
    * = previous %rbp value of the function that called mcount
 
+* `return_to_handler`
+
+* `unsigned long ftrace_return_to_handler(unsigned long frame_pointer)`
+
 
