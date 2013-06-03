@@ -1,7 +1,8 @@
 * `prepare_ftrace_return`
+    * %rbp is still the one of the function that called mcount
     1. `unsigned long *parent`: 
         * `leaq 8(%rbp), %rdi`  
-        * = address of (return address)
+        * = address of (return address) (of the prev frame) 
     2. `unsigned long self_addr`: 
         * `movq 0x38(%rsp), %rsi` 
         * `subq $MCOUNT_INSN_SIZE, %rsi` 
