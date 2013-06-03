@@ -8,7 +8,7 @@
         * didn't push %rbp (so no %rbp on stack)
         * = return address (?) - $MCOUNT_INSN_SIZE (with respect to mcount)
         * `#define MCOUNT_INSN_SIZE    5 /* sizeof mcount call */`
-        * what's my `MCOUNT_INSN_SIZE`?
+        * `MCOUNT_INSN_SIZE` size of `callq` (?)
     3. `unsigned long frame_pointer`: 
         * `movq (%rbp), %rdx` 
         * %rbp is still the same %rbp in the prev frame (?)
