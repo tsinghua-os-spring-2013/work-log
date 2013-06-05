@@ -1,4 +1,4 @@
-* `prepare_ftrace_return`
+# `prepare_ftrace_return`
     * %rbp is still the one of the function that called mcount
 
 1. `unsigned long *parent`: 
@@ -21,8 +21,12 @@
    * = previous %rbp value (of the prev frame) (with respect to mcount)
    * = previous %rbp value of the function that called mcount
 
-* `return_to_handler`
+# `return_to_handler`
 
-* `unsigned long ftrace_return_to_handler(unsigned long frame_pointer)`
+# `unsigned long ftrace_return_to_handler(unsigned long frame_pointer)`
+
+1. `unsigned long frame_pointer`:
+   * %rbp in function that called mcount (?)
+
 
 
