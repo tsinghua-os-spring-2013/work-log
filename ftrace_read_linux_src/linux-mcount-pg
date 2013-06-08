@@ -1,0 +1,263 @@
+./Makefile-563-endif
+./Makefile-564-
+./Makefile-565-ifdef CONFIG_FUNCTION_TRACER
+./Makefile:566:KBUILD_CFLAGS  += -pg
+./Makefile-567-endif
+./Makefile-568-
+./Makefile-569-# We trigger additional mismatches with less inlining
+--
+./lib/Makefile-4-
+./lib/Makefile-5-ifdef CONFIG_FUNCTION_TRACER
+./lib/Makefile-6-ORIG_CFLAGS := $(KBUILD_CFLAGS)
+./lib/Makefile:7:KBUILD_CFLAGS = $(subst -pg,,$(ORIG_CFLAGS))
+./lib/Makefile-8-endif
+./lib/Makefile-9-
+./lib/Makefile-10-lib-y := ctype.o string.o vsprintf.o cmdline.o \
+--
+./kernel/trace/Makefile-3-
+./kernel/trace/Makefile-4-ifdef CONFIG_FUNCTION_TRACER
+./kernel/trace/Makefile-5-ORIG_CFLAGS := $(KBUILD_CFLAGS)
+./kernel/trace/Makefile:6:KBUILD_CFLAGS = $(subst -pg,,$(ORIG_CFLAGS))
+./kernel/trace/Makefile-7-
+./kernel/trace/Makefile-8-# selftest needs instrumentation
+./kernel/trace/Makefile:9:CFLAGS_trace_selftest_dynamic.o = -pg
+./kernel/trace/Makefile-10-obj-y += trace_selftest_dynamic.o
+./kernel/trace/Makefile-11-endif
+./kernel/trace/Makefile-12-
+--
+./kernel/Makefile-16-
+./kernel/Makefile-17-ifdef CONFIG_FUNCTION_TRACER
+./kernel/Makefile-18-# Do not trace debug files and internal ftrace files
+./kernel/Makefile:19:CFLAGS_REMOVE_lockdep.o = -pg
+./kernel/Makefile:20:CFLAGS_REMOVE_lockdep_proc.o = -pg
+./kernel/Makefile:21:CFLAGS_REMOVE_mutex-debug.o = -pg
+./kernel/Makefile:22:CFLAGS_REMOVE_rtmutex-debug.o = -pg
+./kernel/Makefile:23:CFLAGS_REMOVE_cgroup-debug.o = -pg
+./kernel/Makefile:24:CFLAGS_REMOVE_sched_clock.o = -pg
+./kernel/Makefile:25:CFLAGS_REMOVE_perf_event.o = -pg
+./kernel/Makefile-26-endif
+./kernel/Makefile-27-
+./kernel/Makefile-28-obj-$(CONFIG_FREEZER) += freezer.o
+--
+./arch/parisc/kernel/Makefile-13-
+./arch/parisc/kernel/Makefile-14-ifdef CONFIG_FUNCTION_TRACER
+./arch/parisc/kernel/Makefile-15-# Do not profile debug and lowlevel utilities
+./arch/parisc/kernel/Makefile:16:CFLAGS_REMOVE_ftrace.o = -pg
+./arch/parisc/kernel/Makefile:17:CFLAGS_REMOVE_cache.o = -pg
+./arch/parisc/kernel/Makefile:18:CFLAGS_REMOVE_irq.o = -pg
+./arch/parisc/kernel/Makefile:19:CFLAGS_REMOVE_pacache.o = -pg
+./arch/parisc/kernel/Makefile:20:CFLAGS_REMOVE_perf.o = -pg
+./arch/parisc/kernel/Makefile:21:CFLAGS_REMOVE_traps.o = -pg
+./arch/parisc/kernel/Makefile:22:CFLAGS_REMOVE_unaligned.o = -pg
+./arch/parisc/kernel/Makefile:23:CFLAGS_REMOVE_unwind.o = -pg
+./arch/parisc/kernel/Makefile-24-endif
+./arch/parisc/kernel/Makefile-25-
+./arch/parisc/kernel/Makefile-26-obj-$(CONFIG_SMP)	+= smp.o
+--
+./arch/s390/kernel/Makefile-4-
+./arch/s390/kernel/Makefile-5-ifdef CONFIG_FUNCTION_TRACER
+./arch/s390/kernel/Makefile-6-# Don't trace early setup code and tracing code
+./arch/s390/kernel/Makefile:7:CFLAGS_REMOVE_early.o = -pg
+./arch/s390/kernel/Makefile:8:CFLAGS_REMOVE_ftrace.o = -pg
+./arch/s390/kernel/Makefile-9-endif
+./arch/s390/kernel/Makefile-10-
+./arch/s390/kernel/Makefile-11-#
+--
+./arch/mips/boot/compressed/Makefile-24-BOOT_HEAP_SIZE := 0x400000
+./arch/mips/boot/compressed/Makefile-25-
+./arch/mips/boot/compressed/Makefile-26-# Disable Function Tracer
+./arch/mips/boot/compressed/Makefile:27:KBUILD_CFLAGS := $(shell echo $(KBUILD_CFLAGS) | sed -e "s/-pg//")
+./arch/mips/boot/compressed/Makefile-28-
+./arch/mips/boot/compressed/Makefile-29-KBUILD_CFLAGS := $(LINUXINCLUDE) $(KBUILD_CFLAGS) -D__KERNEL__ \
+./arch/mips/boot/compressed/Makefile-30-	-DBOOT_HEAP_SIZE=$(BOOT_HEAP_SIZE) -D"VMLINUX_LOAD_ADDRESS_ULL=$(VMLINUX_LOAD_ADDRESS)ull"
+--
+./arch/mips/kernel/Makefile-9-		   time.o topology.o traps.o unaligned.o watch.o vdso.o
+./arch/mips/kernel/Makefile-10-
+./arch/mips/kernel/Makefile-11-ifdef CONFIG_FUNCTION_TRACER
+./arch/mips/kernel/Makefile:12:CFLAGS_REMOVE_ftrace.o = -pg
+./arch/mips/kernel/Makefile:13:CFLAGS_REMOVE_early_printk.o = -pg
+./arch/mips/kernel/Makefile-14-endif
+./arch/mips/kernel/Makefile-15-
+./arch/mips/kernel/Makefile-16-obj-$(CONFIG_CEVT_BCM1480)	+= cevt-bcm1480.o
+--
+./arch/sh/Makefile-194-KBUILD_AFLAGS		+= $(cflags-y)
+./arch/sh/Makefile-195-
+./arch/sh/Makefile-196-ifeq ($(CONFIG_MCOUNT),y)
+./arch/sh/Makefile:197:  KBUILD_CFLAGS += -pg
+./arch/sh/Makefile-198-endif
+./arch/sh/Makefile-199-
+./arch/sh/Makefile-200-ifeq ($(CONFIG_DWARF_UNWINDER),y)
+--
+./arch/sh/boot/compressed/Makefile-23-
+./arch/sh/boot/compressed/Makefile-24-ifeq ($(CONFIG_MCOUNT),y)
+./arch/sh/boot/compressed/Makefile-25-ORIG_CFLAGS := $(KBUILD_CFLAGS)
+./arch/sh/boot/compressed/Makefile:26:KBUILD_CFLAGS = $(subst -pg, , $(ORIG_CFLAGS))
+./arch/sh/boot/compressed/Makefile-27-endif
+./arch/sh/boot/compressed/Makefile-28-
+./arch/sh/boot/compressed/Makefile-29-LDFLAGS_vmlinux := --oformat $(ld-bfd) -Ttext $(IMAGE_OFFSET) -e startup \
+--
+./arch/sh/kernel/Makefile-6-
+./arch/sh/kernel/Makefile-7-ifdef CONFIG_FUNCTION_TRACER
+./arch/sh/kernel/Makefile-8-# Do not profile debug and lowlevel utilities
+./arch/sh/kernel/Makefile:9:CFLAGS_REMOVE_ftrace.o = -pg
+./arch/sh/kernel/Makefile-10-endif
+./arch/sh/kernel/Makefile-11-
+./arch/sh/kernel/Makefile:12:CFLAGS_REMOVE_return_address.o = -pg
+./arch/sh/kernel/Makefile-13-
+./arch/sh/kernel/Makefile-14-obj-y	:= debugtraps.o dma-nommu.o dumpstack.o 			\
+./arch/sh/kernel/Makefile-15-	   idle.o io.o io_generic.o irq.o				\
+--
+./arch/um/Makefile-skas-3-# Licensed under the GPL
+./arch/um/Makefile-skas-4-#
+./arch/um/Makefile-skas-5-
+./arch/um/Makefile-skas:6:GPROF_OPT += -pg
+./arch/um/Makefile-skas-7-GCOV_OPT += -fprofile-arcs -ftest-coverage
+./arch/um/Makefile-skas-8-
+./arch/um/Makefile-skas-9-CFLAGS-$(CONFIG_GCOV) += $(GCOV_OPT)
+--
+./arch/um/scripts/Makefile.rules-23-
+./arch/um/scripts/Makefile.rules-24-# The stubs can't try to call mcount or update basic block data
+./arch/um/scripts/Makefile.rules-25-define unprofile
+./arch/um/scripts/Makefile.rules:26:	$(patsubst -pg,,$(patsubst -fprofile-arcs -ftest-coverage,,$(1)))
+./arch/um/scripts/Makefile.rules-27-endef
+./arch/um/scripts/Makefile.rules-28-
+./arch/um/scripts/Makefile.rules-29-ifdef subarch-obj-y
+--
+./arch/powerpc/platforms/powermac/Makefile-2-
+./arch/powerpc/platforms/powermac/Makefile-3-ifdef CONFIG_FUNCTION_TRACER
+./arch/powerpc/platforms/powermac/Makefile-4-# Do not trace early boot code
+./arch/powerpc/platforms/powermac/Makefile:5:CFLAGS_REMOVE_bootx_init.o = -pg -mno-sched-epilog
+./arch/powerpc/platforms/powermac/Makefile-6-endif
+./arch/powerpc/platforms/powermac/Makefile-7-
+./arch/powerpc/platforms/powermac/Makefile-8-obj-y				+= pic.o setup.o time.o feature.o pci.o \
+--
+./arch/powerpc/lib/Makefile-8-EXTRA_CFLAGS		+= -mno-minimal-toc
+./arch/powerpc/lib/Makefile-9-endif
+./arch/powerpc/lib/Makefile-10-
+./arch/powerpc/lib/Makefile:11:CFLAGS_REMOVE_code-patching.o = -pg
+./arch/powerpc/lib/Makefile:12:CFLAGS_REMOVE_feature-fixups.o = -pg
+./arch/powerpc/lib/Makefile-13-
+./arch/powerpc/lib/Makefile-14-obj-y			:= string.o alloc.o \
+./arch/powerpc/lib/Makefile-15-			   checksum_$(CONFIG_WORD_SIZE).o
+--
+./arch/powerpc/kernel/Makefile-16-
+./arch/powerpc/kernel/Makefile-17-ifdef CONFIG_FUNCTION_TRACER
+./arch/powerpc/kernel/Makefile-18-# Do not trace early boot code
+./arch/powerpc/kernel/Makefile:19:CFLAGS_REMOVE_cputable.o = -pg -mno-sched-epilog
+./arch/powerpc/kernel/Makefile:20:CFLAGS_REMOVE_prom_init.o = -pg -mno-sched-epilog
+./arch/powerpc/kernel/Makefile:21:CFLAGS_REMOVE_btext.o = -pg -mno-sched-epilog
+./arch/powerpc/kernel/Makefile:22:CFLAGS_REMOVE_prom.o = -pg -mno-sched-epilog
+./arch/powerpc/kernel/Makefile-23-# do not trace tracer code
+./arch/powerpc/kernel/Makefile:24:CFLAGS_REMOVE_ftrace.o = -pg -mno-sched-epilog
+./arch/powerpc/kernel/Makefile-25-# timers used by tracing
+./arch/powerpc/kernel/Makefile:26:CFLAGS_REMOVE_time.o = -pg -mno-sched-epilog
+./arch/powerpc/kernel/Makefile-27-endif
+./arch/powerpc/kernel/Makefile-28-
+./arch/powerpc/kernel/Makefile-29-obj-y				:= cputable.o ptrace.o syscalls.o \
+--
+./arch/blackfin/kernel/Makefile-17-
+./arch/blackfin/kernel/Makefile-18-obj-$(CONFIG_FUNCTION_TRACER)        += ftrace-entry.o
+./arch/blackfin/kernel/Makefile-19-obj-$(CONFIG_FUNCTION_GRAPH_TRACER)  += ftrace.o
+./arch/blackfin/kernel/Makefile:20:CFLAGS_REMOVE_ftrace.o = -pg
+./arch/blackfin/kernel/Makefile-21-
+./arch/blackfin/kernel/Makefile-22-obj-$(CONFIG_IPIPE)                  += ipipe.o
+./arch/blackfin/kernel/Makefile-23-obj-$(CONFIG_BFIN_GPTIMERS)          += gptimers.o
+--
+./arch/microblaze/kernel/cpu/Makefile-3-#
+./arch/microblaze/kernel/cpu/Makefile-4-
+./arch/microblaze/kernel/cpu/Makefile-5-ifdef CONFIG_FUNCTION_TRACER
+./arch/microblaze/kernel/cpu/Makefile:6:CFLAGS_REMOVE_cache.o = -pg
+./arch/microblaze/kernel/cpu/Makefile-7-endif
+./arch/microblaze/kernel/cpu/Makefile-8-
+./arch/microblaze/kernel/cpu/Makefile-9-EXTRA_CFLAGS += -DCPU_MAJOR=$(CPU_MAJOR) -DCPU_MINOR=$(CPU_MINOR) \
+--
+./arch/microblaze/kernel/Makefile-4-
+./arch/microblaze/kernel/Makefile-5-ifdef CONFIG_FUNCTION_TRACER
+./arch/microblaze/kernel/Makefile-6-# Do not trace early boot code and low level code
+./arch/microblaze/kernel/Makefile:7:CFLAGS_REMOVE_timer.o = -pg
+./arch/microblaze/kernel/Makefile:8:CFLAGS_REMOVE_intc.o = -pg
+./arch/microblaze/kernel/Makefile:9:CFLAGS_REMOVE_early_printk.o = -pg
+./arch/microblaze/kernel/Makefile:10:CFLAGS_REMOVE_selfmod.o = -pg
+./arch/microblaze/kernel/Makefile:11:CFLAGS_REMOVE_heartbeat.o = -pg
+./arch/microblaze/kernel/Makefile:12:CFLAGS_REMOVE_ftrace.o = -pg
+./arch/microblaze/kernel/Makefile-13-endif
+./arch/microblaze/kernel/Makefile-14-
+./arch/microblaze/kernel/Makefile-15-extra-y := head.o vmlinux.lds
+--
+./arch/x86/kernel/cpu/Makefile-4-
+./arch/x86/kernel/cpu/Makefile-5-# Don't trace early stages of a secondary CPU boot
+./arch/x86/kernel/cpu/Makefile-6-ifdef CONFIG_FUNCTION_TRACER
+./arch/x86/kernel/cpu/Makefile:7:CFLAGS_REMOVE_common.o = -pg
+./arch/x86/kernel/cpu/Makefile:8:CFLAGS_REMOVE_perf_event.o = -pg
+./arch/x86/kernel/cpu/Makefile-9-endif
+./arch/x86/kernel/cpu/Makefile-10-
+./arch/x86/kernel/cpu/Makefile-11-# Make sure load_percpu_segment has no stackprotector
+--
+./arch/x86/kernel/Makefile-8-
+./arch/x86/kernel/Makefile-9-ifdef CONFIG_FUNCTION_TRACER
+./arch/x86/kernel/Makefile-10-# Do not profile debug and lowlevel utilities
+./arch/x86/kernel/Makefile:11:CFLAGS_REMOVE_tsc.o = -pg
+./arch/x86/kernel/Makefile:12:CFLAGS_REMOVE_rtc.o = -pg
+./arch/x86/kernel/Makefile:13:CFLAGS_REMOVE_paravirt-spinlocks.o = -pg
+./arch/x86/kernel/Makefile:14:CFLAGS_REMOVE_pvclock.o = -pg
+./arch/x86/kernel/Makefile:15:CFLAGS_REMOVE_kvmclock.o = -pg
+./arch/x86/kernel/Makefile:16:CFLAGS_REMOVE_ftrace.o = -pg
+./arch/x86/kernel/Makefile:17:CFLAGS_REMOVE_early_printk.o = -pg
+./arch/x86/kernel/Makefile-18-endif
+./arch/x86/kernel/Makefile-19-
+./arch/x86/kernel/Makefile-20-#
+--
+./arch/x86/xen/Makefile-1-ifdef CONFIG_FUNCTION_TRACER
+./arch/x86/xen/Makefile-2-# Do not profile debug and lowlevel utilities
+./arch/x86/xen/Makefile:3:CFLAGS_REMOVE_spinlock.o = -pg
+./arch/x86/xen/Makefile:4:CFLAGS_REMOVE_time.o = -pg
+./arch/x86/xen/Makefile:5:CFLAGS_REMOVE_irq.o = -pg
+./arch/x86/xen/Makefile-6-endif
+./arch/x86/xen/Makefile-7-
+./arch/x86/xen/Makefile-8-# Make sure early boot has no stackprotector
+--
+./arch/arm/boot/compressed/Makefile-72-
+./arch/arm/boot/compressed/Makefile-73-ifeq ($(CONFIG_FUNCTION_TRACER),y)
+./arch/arm/boot/compressed/Makefile-74-ORIG_CFLAGS := $(KBUILD_CFLAGS)
+./arch/arm/boot/compressed/Makefile:75:KBUILD_CFLAGS = $(subst -pg, , $(ORIG_CFLAGS))
+./arch/arm/boot/compressed/Makefile-76-endif
+./arch/arm/boot/compressed/Makefile-77-
+./arch/arm/boot/compressed/Makefile-78-EXTRA_CFLAGS  := -fpic -fno-builtin
+--
+./arch/arm/kernel/Makefile-6-AFLAGS_head.o        := -DTEXT_OFFSET=$(TEXT_OFFSET)
+./arch/arm/kernel/Makefile-7-
+./arch/arm/kernel/Makefile-8-ifdef CONFIG_DYNAMIC_FTRACE
+./arch/arm/kernel/Makefile:9:CFLAGS_REMOVE_ftrace.o = -pg
+./arch/arm/kernel/Makefile-10-endif
+./arch/arm/kernel/Makefile-11-
+./arch/arm/kernel/Makefile:12:CFLAGS_REMOVE_return_address.o = -pg
+./arch/arm/kernel/Makefile-13-
+./arch/arm/kernel/Makefile-14-# Object file lists.
+./arch/arm/kernel/Makefile-15-
+--
+./arch/sparc/Makefile-56-KBUILD_AFLAGS += -m64 -mcpu=ultrasparc -Wa,--undeclared-regs
+./arch/sparc/Makefile-57-
+./arch/sparc/Makefile-58-ifeq ($(CONFIG_MCOUNT),y)
+./arch/sparc/Makefile:59:  KBUILD_CFLAGS += -pg
+./arch/sparc/Makefile-60-endif
+./arch/sparc/Makefile-61-
+./arch/sparc/Makefile-62-endif
+--
+./arch/sparc/kernel/Makefile-15-
+./arch/sparc/kernel/Makefile-16-ifdef CONFIG_FUNCTION_TRACER
+./arch/sparc/kernel/Makefile-17-# Do not profile debug and lowlevel utilities
+./arch/sparc/kernel/Makefile:18:CFLAGS_REMOVE_ftrace.o := -pg
+./arch/sparc/kernel/Makefile:19:CFLAGS_REMOVE_time_$(BITS).o := -pg
+./arch/sparc/kernel/Makefile:20:CFLAGS_REMOVE_perf_event.o := -pg
+./arch/sparc/kernel/Makefile:21:CFLAGS_REMOVE_pcr.o := -pg
+./arch/sparc/kernel/Makefile-22-endif
+./arch/sparc/kernel/Makefile-23-
+./arch/sparc/kernel/Makefile-24-obj-$(CONFIG_SPARC32)   += entry.o wof.o wuf.o
+--
+./arch/ia64/kernel/Makefile-3-#
+./arch/ia64/kernel/Makefile-4-
+./arch/ia64/kernel/Makefile-5-ifdef CONFIG_DYNAMIC_FTRACE
+./arch/ia64/kernel/Makefile:6:CFLAGS_REMOVE_ftrace.o = -pg
+./arch/ia64/kernel/Makefile-7-endif
+./arch/ia64/kernel/Makefile-8-
+./arch/ia64/kernel/Makefile-9-extra-y	:= head.o init_task.o vmlinux.lds
