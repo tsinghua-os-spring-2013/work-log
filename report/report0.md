@@ -50,6 +50,12 @@ ftrace 中处理跟踪信息等跟踪功能尚未实现.
 
 ### linux 代码阅读
 
+[https://www.kernel.org/doc/Documentation/](https://www.kernel.org/doc/Documentation/) 
+提供了关于 linux 中的部分文档, 但是大部分内容比较简略不详细. 
+linux 源代码解压后, 可以执行 `make tags`, `make cscope` 生成支持 ctags 和 cscope 的文件用来查阅代码. 
+同时 [http://lxr.linux.no/](http://lxr.linux.no/) 和 [http://lxr.free-electrons.com/](http://lxr.free-electrons.com/) 
+可以查阅代码. [understanding the linux kernel](http://connect.safaribooksonline.com/0596005652) 也是较好的参考. 
+
 ### 查看为什么增加了 ftrace 功能之后系统崩溃
 
 
