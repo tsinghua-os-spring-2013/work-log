@@ -36,6 +36,10 @@ gprof 会将虚拟机 guest 中运行的函数错误地认为是 host 中的函�
 
 这个需要在 ucore 中 palacios 运行的速度有所提升后才方便进行跟踪并且调试.
 
+## 未来的方向
+
+首先用 ftrace 跟踪 ucore 性能, 进行优化后便于进一步调试 ucore 中的 palacios 运行虚拟机. 
+
 ***
 
 # ftrace
@@ -85,5 +89,10 @@ linux 源代码解压后, 可以执行 `make tags`, `make cscope` 生成支持 c
     relocation truncated to fit: R_X86_64_32S against symbol
     
 这样的话可以使用 `movabs` 指令先把变量移动到一个寄存器中 (例如 `%eax`). 
+
+## 未来的方向
+
+
+
 
 
