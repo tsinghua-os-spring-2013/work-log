@@ -21,6 +21,21 @@ linux ([http://distro.ibiblio.org/tinycorelinux/](http://distro.ibiblio.org/tiny
 ([http://www.linuxjournal.com/content/embedding-file-executable-aka-hello-world-version-5967](http://www.linuxjournal.com/content/embedding-file-executable-aka-hello-world-version-5967)). 
 详细做法在[这里](https://github.com/tsinghua-os-spring-2013/work-log/blob/master/link-vm-img-into-ucore-kernel/log1.md)给出.
 
+### ucore 中 palacios 运行速度过慢
+
+ucore 中 palacios 运行速度特别慢, tinycorelinux 的启动需要等大概一天的时间. 
+
+这里采用了 gprof 进行跟踪, 但是由于 palacios 实用了 AMD-V 技术进行虚拟化, 
+gprof 会将虚拟机 guest 中运行的函数错误地认为是 host 中的函数. 
+例如, `do_halt` 就出现了被 gprof 认为是被调用了, 但是这个函数实际上没有被调用. 
+
+这里的解决方案是像 linux 中一样实现 ftrace, 
+对内核中的函数调用进行跟踪. 
+
+### ucore 中 palacios 启动 tinycorelinux 之后在 shell 界面死机
+
+这个需要在 ucore 中 palacios 运行的速度有所提升后才方便进行跟踪并且调试.
+
 ***
 
 # ftrace
