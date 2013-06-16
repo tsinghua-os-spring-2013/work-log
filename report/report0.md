@@ -58,6 +58,18 @@ linux 源代码解压后, 可以执行 `make tags`, `make cscope` 生成支持 c
 
 ### 查看为什么增加了 ftrace 功能之后系统崩溃
 
+通过 qemu 和 gdb 可以对 ucore 进行跟踪, 下面列举一些遇到过的问题. 
+
+1. 不该添加 `mcount` 的地方添加了 `mcount`
+
+`mcount` 中调用了添加了 `mcount` 的函数后就会形成死递归, 所以要注意. 
+
+需要在 makefile 中对于一些文件不使用 gcc -pg 选项, make 中有功能叫 [`filter-out`](http://www.gnu.org/software/make/manual/make.html#Text-Functions). 
+另外, linux 中的部分函数使用了 `notrace`, 也就是 `__attribute__((no_instrument_function))` 防止 gcc 加入 `mcount`. 
+
+下一步的工作需要看 linux 中那些部分编译时是不用 -pg 的, 并且看其他部分里哪些函数是加了 `notrace` 的. 
+
+
 
 
 
