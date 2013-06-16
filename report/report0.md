@@ -92,6 +92,18 @@ linux 源代码解压后, 可以执行 `make tags`, `make cscope` 生成支持 c
 
 ## 未来的方向
 
+了解 linux 里面 tracing 功能是如何开启和关闭的, 保证在整个内核可以加 `mcount` 
+的地方加了 `mcount` 之后系统不会崩溃能够正常使用并且测试能够同各国. 
+
+
+另外, 需要分析 linux 源代码, 看哪些地方是不加 `mcount` 的.
+
+在上述两个实现之后, 可以考虑将 ftrace 跟踪信息分析的功能加入 ucore, 
+能够对 ucore 性能有所分析. 
+
+
+
+
 
 
 
