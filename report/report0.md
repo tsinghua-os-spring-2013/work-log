@@ -61,7 +61,7 @@ linux 源代码解压后, 可以执行 `make tags`, `make cscope` 生成支持 c
 
 通过 qemu 和 gdb 可以对 ucore 进行跟踪, 下面列举一些遇到过的问题. 
 
-1. 不该添加 `mcount` 的地方添加了 `mcount`
+* 不该添加 `mcount` 的地方添加了 `mcount`
 
 `mcount` 中调用了添加了 `mcount` 的函数后就会形成死递归, 所以要注意. 
 
@@ -70,7 +70,7 @@ linux 源代码解压后, 可以执行 `make tags`, `make cscope` 生成支持 c
 
 下一步的工作需要看 linux 中那些部分编译时是不用 -pg 的, 并且看其他部分里哪些函数是加了 `notrace` 的. 
 
-2. 需要等到系统启动完善到一定情况下才能开启 ftrace
+* 需要等到系统启动完善到一定情况下才能开启 ftrace
 
 目前在 [`kern_init`](https://github.com/eternalNight/ucore_plus-next/blob/lty/ftrace/ucore/src/kern-ucore/arch/amd64/init/init.c#L37) 
 里面通过设置 `function_trace_stop` 来开关 ftrace. 
@@ -78,7 +78,7 @@ linux 源代码解压后, 可以执行 `make tags`, `make cscope` 生成支持 c
 
 下一步的工作需要阅读更多的 linux 源代码, 看 linux 是如何开启和关闭 tracing 的功能的. 
 
-3. ucore 链接时出错
+* ucore 链接时出错
 
 在汇编代码中用 C 中的变量在编译时出错 ([这里](https://github.com/eternalNight/ucore_plus-next/blob/lty/ftrace/ucore/src/kern-ucore/arch/amd64/init/no_mcount/entry64.S#L37)出的错)
 
