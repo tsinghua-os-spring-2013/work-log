@@ -14,10 +14,10 @@ linux ([http://distro.ibiblio.org/tinycorelinux/](http://distro.ibiblio.org/tiny
 
 ### 将虚拟机镜像放入到 ucore 中
 
-之前的做法是把镜像转成 16 进制后放在一个 `.h` 中, 这样会占用编译器大量的内存. 
+之前的做法是把镜像转成 16 进制后放在一个 .h 中, 这样会占用编译器大量的内存. 
 
 现在采用 [kitten](https://software.sandia.gov/trac/kitten) 的办法, 
-也就是把二进制文件转换成一个 `.o` 文件 
+也就是把二进制文件转换成一个 .o 文件 
 ([http://www.linuxjournal.com/content/embedding-file-executable-aka-hello-world-version-5967](http://www.linuxjournal.com/content/embedding-file-executable-aka-hello-world-version-5967)). 
 详细做法在[这里](https://github.com/tsinghua-os-spring-2013/work-log/blob/master/link-vm-img-into-ucore-kernel/log1.md)给出.
 
@@ -60,6 +60,9 @@ ftrace 中处理跟踪信息等跟踪功能尚未实现.
 linux 源代码解压后, 可以执行 `make tags`, `make cscope` 生成支持 ctags 和 cscope 的文件用来查阅代码. 
 同时 [http://lxr.linux.no/](http://lxr.linux.no/) 和 [http://lxr.free-electrons.com/](http://lxr.free-electrons.com/) 
 可以查阅代码. [understanding the linux kernel](http://connect.safaribooksonline.com/0596005652) 也是较好的参考. 
+
+同时, 对于 linux 里面的汇编代码, 需要参考对应的架构的 ABI, 
+例如对于 amd64 需要参考 [https://refspecs.linuxfoundation.org/elf/x86_64-abi-0.95.pdf](https://refspecs.linuxfoundation.org/elf/x86_64-abi-0.95.pdf).
 
 ### 查看为什么增加了 ftrace 功能之后系统崩溃
 
