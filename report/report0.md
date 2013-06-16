@@ -42,6 +42,7 @@ gprof 会将虚拟机 guest 中运行的函数错误地认为是 host 中的函�
 
 ## 取得的成果
 
+在 amd64 架构下, 
 只在 mm 模块中加入 ftrace 的功能后, 我们能够在内核函数进入和内核函数返回的时候调用一个用来跟踪的函数, 
 目前的跟踪函数是在被调用时打印一句话, 告诉用户跟踪函数已被调用. 
 ftrace 中处理跟踪信息等跟踪功能尚未实现. 
@@ -69,7 +70,20 @@ linux 源代码解压后, 可以执行 `make tags`, `make cscope` 生成支持 c
 
 下一步的工作需要看 linux 中那些部分编译时是不用 -pg 的, 并且看其他部分里哪些函数是加了 `notrace` 的. 
 
+2. 需要等到系统启动完善到一定情况下才能开启 ftrace
 
+目前在 [`kern_init`](https://github.com/eternalNight/ucore_plus-next/blob/lty/ftrace/ucore/src/kern-ucore/arch/amd64/init/init.c#L37) 
+里面通过设置 `function_trace_stop` 来开关 ftrace. 
+但是这样只能保证 ucore 中只在 mm 加入 `mcount` 后能够启动并且基本功能能够运行. 
 
+下一步的工作需要阅读更多的 linux 源代码, 看 linux 是如何开启和关闭 tracing 的功能的. 
+
+3. ucore 链接时出错
+
+在汇编代码中用 C 中的变量在编译时出错 ([这里](https://github.com/eternalNight/ucore_plus-next/blob/lty/ftrace/ucore/src/kern-ucore/arch/amd64/init/no_mcount/entry64.S#L37)出的错)
+
+    relocation truncated to fit: R_X86_64_32S against symbol
+    
+这样的话可以使用 `movabs` 指令先把变量移动到一个寄存器中 (例如 `%eax`). 
 
 
